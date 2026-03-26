@@ -12,10 +12,16 @@ import tempfile
 # Load environment variables (optional locally)
 load_dotenv()
 
+# Debug: Check if API key is loaded
+api_key = os.getenv("GROQ_API_KEY")
+if not api_key:
+    st.error("GROQ_API_KEY not found in environment variables. Please check your .env file.")
+    st.stop()
+
 # Initialize Groq client
 client = OpenAI(
     base_url="https://api.groq.com/openai/v1",
-    api_key=os.getenv("GROQ_API_KEY")  # Use Streamlit Secrets
+    api_key=api_key
 )
 
 # Initialize session state
