@@ -1,0 +1,9 @@
+streamlit
+openai
+pypdf
+sentence-transformers
+python-dotenv
+faiss-cpu
+gtts
+speechrecognition
+pyaudio
