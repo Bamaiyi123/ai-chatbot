@@ -12,10 +12,28 @@ import tempfile
 # Load environment variables (optional locally)
 load_dotenv()
 
-# Debug: Check if API key is loaded
-api_key = os.getenv("GROQ_API_KEY")
+# Get API key from Streamlit secrets (for cloud) or environment variables (for local)
+api_key = None
+try:
+    # Try Streamlit secrets first (works on Streamlit Cloud)
+    api_key = st.secrets["GROQ_API_KEY"]
+except KeyError:
+    # Fall back to environment variables (for local development)
+    api_key = os.getenv("GROQ_API_KEY")
+
 if not api_key:
-    st.error("GROQ_API_KEY not found in environment variables. Please check your .env file.")
+    st.error("""
+    GROQ_API_KEY not found!
+
+    **For Streamlit Cloud:**
+    1. Go to your app dashboard
+    2. Click "Settings" → "Secrets"
+    3. Add: GROQ_API_KEY = "your_actual_groq_api_key_here"
+
+    **For local development:**
+    1. Create a .env file in your project root
+    2. Add: GROQ_API_KEY=your_actual_groq_api_key_here
+    """)
     st.stop()
 
 # Initialize Groq client
