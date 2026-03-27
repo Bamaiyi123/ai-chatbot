@@ -3,8 +3,4 @@ gunicorn
 flask-cors
 openai
 pypdf
-faiss
-numpy
-os
 sentence_transformers
-dotenv
